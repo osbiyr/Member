@@ -4,11 +4,13 @@ using namespace std;
 int Member::numUsers = 0;
 int Member::nextId = 0;
 
+//constructor
 Member::Member() {
-	numUsers++;
-	userId = nextId++;
+	numUsers++; // numbers of users 
+	userId = nextId++; // id of each user
 }
 
+//distructor
 Member::~Member() {
 
 	for (Member *member : following) {
@@ -23,13 +25,6 @@ Member::~Member() {
 	following.clear();
 
 	numUsers--;
-
-	//for (int i = 0; i<followers.size(); i++) {
-		//followers[i]->unfollow(*this);
-	//}
-	//for (int i = 0;i<following.size(); i++) {
-		//unfollow(*following[i]);
-	//}
 	
 }
 
@@ -44,12 +39,12 @@ int Member::numFollowing() {
 }
 
 void Member::follow(Member& other) {
-	if (this != &other) { // בדיקה שהוא לא עוקב אחרי עצמו
+	if (this != &other) { // check if the user not following himself
 		Member *temp = &other;
 		
 		for (int i = 0; i < following.size(); i++) {
 
-			if (following[i] == temp) //אם הוא כבר בחברים
+			if (following[i] == temp) // check if he is already following "other"
 				return;
 		}
 			following.push_back(temp);
@@ -62,19 +57,19 @@ void Member::follow(Member& other) {
 
 void Member::unfollow(Member& other)
 {
-	if (this != &other) {
+	if (this != &other) { // check if the user is unfollowing himself
 		Member *temp = &other;
 
 		for (int i = 0; i < following.size(); i++) {
 
-			if (following[i] == temp) {
+			if (following[i] == temp) { // check if he is following "other"
 				following.erase(following.begin() + i);
 			}
 		}
 
 		for (int i = 0; i < other.followers.size(); i++) {
 
-			if (other.followers[i] == this) {
+			if (other.followers[i] == this) { // check if the user is in the followers of "other"
 				other.followers.erase(other.followers.begin() + i);
 
 				return;
