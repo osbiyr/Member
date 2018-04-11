@@ -18,7 +18,7 @@ protected: static int nextId;
 	int userId;
 
 public:
-	
+	// declerations of functions
 	Member();
 	~Member(); 
 
@@ -29,7 +29,7 @@ public:
 	void unfollow(Member& other);
 	
 
-	static int count() {
+	static int count() { // count the number of the active memebers 
 		return numUsers;
 	}
 	
